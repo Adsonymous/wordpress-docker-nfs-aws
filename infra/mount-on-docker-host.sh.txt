@@ -1,0 +1,11 @@
+#!/bin/bash
+# Docker host pe NFS mount script (actual Docker volumes mapping)
+
+# NFS server IP (default, agar argument na diya ho)
+NFS_SERVER_IP=${1:-172.31.44.203}
+
+# Mount /db-data to db-vol
+sudo mount -t nfs ${NFS_SERVER_IP}:/db-data /var/lib/docker/volumes/db-vol/_data
+
+# Mount /wp-data to wp-vol
+sudo mount -t nfs ${NFS_SERVER_IP}:/wp-data /var/lib/docker/volumes/wp-vol/_data

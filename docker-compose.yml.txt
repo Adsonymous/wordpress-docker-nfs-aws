@@ -1,0 +1,42 @@
+version: '3.8'
+
+volumes:
+  db-vol:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER_IP},rw,no_root_squash"
+      device: ":/db-data"
+
+  wp-vol:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_SERVER_IP},rw,no_root_squash"
+      device: ":/wp-data"
+
+services:
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - db-vol:/var/lib/mysql
+    networks:
+      - wp-network
+
+  wordpress:
+    image: wordpress:6.8.2-apache
+    depends_on:
+      - db
+    ports:
+      - "${HOST_HTTP_PORT}:80"
+    env_file: .env
+    volumes:
+      - wp-vol:/var/www/html
+    networks:
+      - wp-network
+
+networks:
+  wp-network:
+    driver: bridge

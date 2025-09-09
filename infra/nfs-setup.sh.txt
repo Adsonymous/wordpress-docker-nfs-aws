@@ -1,0 +1,16 @@
+#!/bin/bash
+# Install NFS utilities
+sudo yum install -y nfs-utils
+
+# Create directories for WordPress and MySQL
+sudo mkdir -p /wp-data /db-data
+
+# Add NFS exports with no_root_squash
+echo "/wp-data 172.31.45.234(rw,sync,no_root_squash,no_subtree_check)" | sudo tee -a /etc/exports
+echo "/db-data 172.31.45.234(rw,sync,no_root_squash,no_subtree_check)" | sudo tee -a /etc/exports
+
+# Enable and start NFS server
+sudo systemctl enable --now nfs-server
+
+# Export file systems
+sudo exportfs -rv

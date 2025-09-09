@@ -1,0 +1,12 @@
+# Ignore environment files
+.env
+
+# Ignore logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker-related ignores (optional)
+docker-compose.override.yml
