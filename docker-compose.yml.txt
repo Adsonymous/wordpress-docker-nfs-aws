@@ -40,3 +40,13 @@ services:
 networks:
   wp-network:
     driver: bridge
+
+db:
+  image: mysql:latest
+  restart: unless-stopped
+  env_file: .env
+  volumes:
+    - db-vol:/var/lib/mysql
+  ports:
+    - "3306:3306"
+    - "33060:33060"
