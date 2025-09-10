@@ -16,3 +16,5 @@
 - Easy deployment using docker-compose
 - Infrastructure scripts included to setup NFS server and mount volumes
 - Demo screenshots and sample database dump included
+
+- **MySQL Ports (3306, 33060)**: Not exposed publicly. Accessible only within Docker network for security.
